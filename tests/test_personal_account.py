@@ -1,6 +1,5 @@
 import allure
 
-from pages.login_page import LoginPage
 from pages.header_page import HeaderPage
 from pages.account_profile_page import AccountProfilePage
 from data.urls import Urls

@@ -47,4 +47,8 @@ class BasePage:
 
     def is_current_url(self, url):
         return self.wait.until(expected_conditions.url_contains(url))
+
+    # метод проверки исчезновения элемента
+    def wait_element_disappear(self, locator):
+        return self.wait.until(expected_conditions.invisibility_of_element_located(locator))
     

@@ -14,4 +14,8 @@ class ModalPage(BasePage):
     # метод проверки исчезнвения модалки ингредиента
     def is_modal_closed(self):
         return self.wait_element_disappear(ModalLocators.ingredient_deteils_title)
+
+    # метод проверки что заказ создается
+    def is_order_prepared_text(self):
+        return self.find(ModalLocators.order_prepared_text).is_displayed()
     

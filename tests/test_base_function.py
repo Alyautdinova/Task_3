@@ -33,11 +33,10 @@ class TestBaseFunction:
     @allure.description('Проверяем открытие модалки ингредиента')
     def test_ingredient_modal_opened(self, driver):
         with allure.step('Открытие главной страницы'):
-            headerPage = HeaderPage(driver)
-            headerPage.open(Urls.BASE_URL)
+            constructorPage = ConstructorPage(driver)
+            constructorPage.open(Urls.BASE_URL)
 
         with allure.step('Нажатие на ингредиент'):
-            constructorPage = ConstructorPage(driver)
             constructorPage.click_ingredient_button()
 
         with allure.step('Проверка открытии модалки'):
@@ -48,11 +47,10 @@ class TestBaseFunction:
     @allure.description('Проверяем закрытие модалки ингредиента')
     def test_ingredient_modal_closed(self, driver):
         with allure.step('Открытие главной страницы'):
-            headerPage = HeaderPage(driver)
-            headerPage.open(Urls.BASE_URL)
+            constructorPage = ConstructorPage(driver)
+            constructorPage.open(Urls.BASE_URL)
 
         with allure.step('Нажатие на ингредиент'):
-            constructorPage = ConstructorPage(driver)
             constructorPage.click_ingredient_button()
 
         with allure.step('Нажатие на крестик в модальном окне'):
@@ -61,4 +59,37 @@ class TestBaseFunction:
 
         with allure.step('Проверка, что модалка закрыта'):
             assert modalPage.is_modal_closed
+
+    @allure.title('При добавлении ингредиента увеличивается каунтер')
+    @allure.description('Проверяем, что при драг-дропе увеличивается число ингредиента')
+    def test_counter_increases(self, driver):
+        with allure.step('Открытие главной страницы'):
+            constructorPage = ConstructorPage(driver)
+            constructorPage.open(Urls.BASE_URL)
+
+        with allure.step('Драг-дроп ингредиента'):
+            constructorPage.drag_and_drop_ingredient(1)
+
+        with allure.step('Проверка, что ингредиент добавлен в корзину'):
+            assert constructorPage.get_ingredient_counter() != "0"
+
+    @allure.title('Оформление заказа залогиненным пользователем')
+    @allure.description('Проверяем, что залогиненный пользователь может оформить заказ')
+    def test_logged_in_user_can_make_order(self, logged_in_page, driver):
+        with allure.step('Открытие главной страницы'):
+            # добавлено нажатия на кнопку, так как без нее не работает логин (вместо кнопки Оформить заказ отображается Войти)
+            headerPage = HeaderPage(driver)
+            headerPage.click_personal_account_button()
+        
+            constructorPage = ConstructorPage(driver)
+            constructorPage.open(Urls.BASE_URL)
+
+        with allure.step('Собираем заказ и нажимаем на кнопку «Оформить заказ»'):
+            constructorPage.drag_and_drop_ingredient(1)
+            constructorPage.drag_and_drop_ingredient(3)
+            constructorPage.click_order_button()
+
+        with allure.step('Проверка, что заказ оформлен'):
+            modalPage = ModalPage(driver)
+            assert modalPage.is_order_prepared_text()
     

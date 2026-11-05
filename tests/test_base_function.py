@@ -75,12 +75,8 @@ class TestBaseFunction:
 
     @allure.title('Оформление заказа залогиненным пользователем')
     @allure.description('Проверяем, что залогиненный пользователь может оформить заказ')
-    def test_logged_in_user_can_make_order(self, logged_in_page, driver):
+    def test_logged_in_user_can_make_order(self, logged_in_page2, driver):
         with allure.step('Открытие главной страницы'):
-            # добавлено нажатия на кнопку, так как без нее не работает логин (вместо кнопки Оформить заказ отображается Войти)
-            headerPage = HeaderPage(driver)
-            headerPage.click_personal_account_button()
-        
             constructorPage = ConstructorPage(driver)
             constructorPage.open(Urls.BASE_URL)
 

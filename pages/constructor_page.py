@@ -22,7 +22,7 @@ class ConstructorPage(BasePage):
 
     # метод получения количества ингредиентов    
     def get_ingredient_counter(self):
-        return self.find(ConstructorLocators.counter_ingredient_icon).text
+        return self.get_text(ConstructorLocators.counter_ingredient_icon)
 
     # метод нажатия на кнопку "Оформить заказ"
     def click_order_button(self):

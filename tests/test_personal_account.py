@@ -8,17 +8,17 @@ class TestPersonalAccount:
 
     @allure.title('Переход по клику на «Личный кабинет»')
     @allure.description('Проверяем переход на страницу аккаунта при нажатии на кнопку «Личный кабинет»')
-    def test_go_to_personal_account(self, logged_in_page, driver):
+    def test_go_to_personal_account(self, logged_in_page2, driver):
         with allure.step('Нажатие на кнопку «Личный кабинет»'):
             headerPage = HeaderPage(driver)
             headerPage.click_personal_account_button()
 
         with allure.step('Проверка редиректа на страницу личного кабинета'):
-            assert logged_in_page.is_current_url(Urls.PERSONAL_ACCOUNT_URL)
+            assert headerPage.is_current_url(Urls.PERSONAL_ACCOUNT_URL)
 
     @allure.title('Переход по клику на «История заказов»')
     @allure.description('Проверяем переход на страницу истории заказов при нажатии на кнопку «История заказов»')
-    def test_go_to_order_history(self, logged_in_page, driver):
+    def test_go_to_order_history(self, logged_in_page2, driver):
         with allure.step('Нажатие на кнопку «Личный кабинет»'):
             headerPage = HeaderPage(driver)
             headerPage.click_personal_account_button()

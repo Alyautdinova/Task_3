@@ -95,3 +95,23 @@ def logged_in_page2(driver, register_new_user):
     driver.refresh()
     
     return driver
+
+# фикстура для получения валидных ID ингредиентов
+@pytest.fixture
+def get_valid_ingredients():
+    response = requests.get(Urls.INGREDIENTS_URL)
+    assert response.status_code == 200
+    
+    ingredients_data = response.json().get("data", [])
+    return [ingredients_data[0]["_id"], ingredients_data[1]["_id"]]
+
+# фикстура для создание заказа
+@pytest.fixture
+def created_order(register_new_user, get_valid_ingredients):
+    token = register_new_user["token"]
+    headers = {"Authorization": token}
+    payload = {"ingredients": get_valid_ingredients}
+    
+    response = requests.post(Urls.ORDER_URL, json=payload, headers=headers)
+    
+    return {"order_number": response.json()["order"]["number"], "token": token}

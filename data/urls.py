@@ -9,4 +9,6 @@ class Urls:
 
     REGISTER_URL = BASE_URL + "api/auth/register"
     USER_URL = BASE_URL + "api/auth/user"
+    ORDER_URL = BASE_URL + "api/orders"
+    INGREDIENTS_URL = BASE_URL + "api/ingredients"
     

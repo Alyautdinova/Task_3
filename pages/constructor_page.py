@@ -27,4 +27,10 @@ class ConstructorPage(BasePage):
     # метод нажатия на кнопку "Оформить заказ"
     def click_order_button(self):
         self.click(ConstructorLocators.order_button)
+
+    # метод оформления заказа c булкой и соусом
+    def order(self):
+        self.drag_and_drop_ingredient(1)
+        self.drag_and_drop_ingredient(3)
+        self.click_order_button()
     

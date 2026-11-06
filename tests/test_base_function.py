@@ -41,7 +41,7 @@ class TestBaseFunction:
 
         with allure.step('Проверка открытии модалки'):
             modalPage = ModalPage(driver)
-            assert modalPage.is_modal_opened()
+            assert modalPage.is_ingredient_modal_opened()
 
     @allure.title('Клик на крестик в модалке ингредиента')
     @allure.description('Проверяем закрытие модалки ингредиента')
@@ -58,7 +58,7 @@ class TestBaseFunction:
             modalPage.click_close_modal_button
 
         with allure.step('Проверка, что модалка закрыта'):
-            assert modalPage.is_modal_closed
+            assert modalPage.is_ingredient_modal_closed
 
     @allure.title('При добавлении ингредиента увеличивается каунтер')
     @allure.description('Проверяем, что при драг-дропе увеличивается число ингредиента')
@@ -81,9 +81,7 @@ class TestBaseFunction:
             constructorPage.open(Urls.BASE_URL)
 
         with allure.step('Собираем заказ и нажимаем на кнопку «Оформить заказ»'):
-            constructorPage.drag_and_drop_ingredient(1)
-            constructorPage.drag_and_drop_ingredient(3)
-            constructorPage.click_order_button()
+            constructorPage.order()
 
         with allure.step('Проверка, что заказ оформлен'):
             modalPage = ModalPage(driver)

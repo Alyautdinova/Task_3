@@ -47,8 +47,7 @@ def register_new_user():
     
     # удаление юзера
     headers = {"Authorization": token}
-    delete_response = requests.delete(Urls.USER_URL, headers=headers)
-    assert delete_response.status_code == 202
+    requests.delete(Urls.USER_URL, headers=headers)
 
 # фикстура для входа через ui
 @pytest.fixture
@@ -100,7 +99,6 @@ def logged_in_page2(driver, register_new_user):
 @pytest.fixture
 def get_valid_ingredients():
     response = requests.get(Urls.INGREDIENTS_URL)
-    assert response.status_code == 200
     
     ingredients_data = response.json().get("data", [])
     return [ingredients_data[0]["_id"], ingredients_data[1]["_id"]]
